@@ -1,0 +1,40 @@
+name: "Notify Slack"
+
+on:
+  workflow_run:
+    workflows: 
+      - "Always SKip Workflows"
+      
+    types: [completed, requested]
+
+# Note: !( github.event.workflow_run.status != 'skipped' && (github.event.workflow_run.conclusion == 'success' || github.event.workflow_run.conclusion == 'failure') )
+# Note: ( github.event.workflow_run.status == 'skipped' || ( github.event.workflow_run.conclusion != 'success' && github.event.workflow_run.conclusion != 'failure'))
+
+jobs:
+
+  on-requested:
+    runs-on: ubuntu-latest
+    if: |
+      github.event.workflow_run.status == 'queued' && 
+      ( github.event.workflow_run.status == 'skipped' || ( github.event.workflow_run.conclusion != 'success' && github.event.workflow_run.conclusion != 'failure'))
+
+    steps:
+      - run: echo 'The triggering workflow passed'
+      - run: echo '${{ toJSON(github.event.workflow_run) }}'
+
+  on-success:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.status != 'skipped' && github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - run: echo 'The triggering workflow passed'
+      - run: echo '${{ toJSON(github.event.workflow_run) }}'
+          
+  on-failure:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.status != 'skipped' && github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - run: echo 'The triggering workflow passed'
+      - run: echo '${{ toJSON(github.event.workflow_run) }}'
+
+
+      

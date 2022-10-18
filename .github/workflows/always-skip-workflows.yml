@@ -1,0 +1,12 @@
+name: "Always SKip Workflows"
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  main:
+    if: false
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'test'
