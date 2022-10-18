@@ -3,6 +3,7 @@ name: "Notify Slack"
 on:
   workflow_run:
     workflows: 
+      - "Always Skip Workflows"
       - "Always Pass Workflows"
       
     types: [completed, requested]
@@ -12,7 +13,9 @@ jobs:
   on-requested:
     runs-on: ubuntu-latest
     if: |
-      github.event.workflow_run.status == 'queued' && github.event.workflow_run.conclusion != null
+      github.event.workflow_run.status == 'queued' && 
+      github.event.workflow_run.conclusion != 'success' 
+      github.event.workflow_run.conclusion != 'failure' 
 
     steps:
       - run: echo 'The triggering workflow passed'

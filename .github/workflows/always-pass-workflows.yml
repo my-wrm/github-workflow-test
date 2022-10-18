@@ -1,4 +1,4 @@
-name: "Always Skip Workflows"
+name: "Always Pass Workflows"
 
 on:
   workflow_dispatch:
