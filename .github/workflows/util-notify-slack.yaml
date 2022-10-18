@@ -3,7 +3,7 @@ name: "Notify Slack"
 on:
   workflow_run:
     workflows: 
-      - "Always SKip Workflows"
+      - "Always Pass Workflows"
       
     types: [completed, requested]
 
