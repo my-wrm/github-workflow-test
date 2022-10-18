@@ -7,9 +7,6 @@ on:
       
     types: [completed, requested]
 
-# Note: !( github.event.workflow_run.status != 'skipped' && (github.event.workflow_run.conclusion == 'success' || github.event.workflow_run.conclusion == 'failure') )
-# Note: ( github.event.workflow_run.status == 'skipped' || ( github.event.workflow_run.conclusion != 'success' && github.event.workflow_run.conclusion != 'failure'))
-
 jobs:
 
   on-requested:
